@@ -5,6 +5,7 @@ using System.Web.Routing;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
+using AutoMapper;
 
 namespace PizzaStore
 {
@@ -19,8 +20,16 @@ namespace PizzaStore
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             DependencyConfig.RegisterDependencies(container);
-            container.Verify();
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+
+            var mapperConfig = new MapperConfiguration(cfg => {
+                cfg.AddProfile<MappingConfig>();
+            });
+            var mapper = new Mapper(mapperConfig);
+            container.Register<IMapper>(() => mapper, Lifestyle.Singleton);
+
+            mapperConfig.AssertConfigurationIsValid();
+            container.Verify();
         }
     }
 }

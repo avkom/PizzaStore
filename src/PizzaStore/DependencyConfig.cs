@@ -1,4 +1,5 @@
-﻿using SimpleInjector;
+﻿using Infrastructure;
+using SimpleInjector;
 
 namespace PizzaStore
 {
@@ -6,7 +7,7 @@ namespace PizzaStore
     {
         public static void RegisterDependencies(Container container)
         {
-            // container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
+            container.Register<IMapper, Mapper>(Lifestyle.Singleton);
         }
     }
 }
