@@ -1,6 +1,10 @@
-﻿using System.Web;
+﻿using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using SimpleInjector;
+using SimpleInjector.Integration.Web;
+using SimpleInjector.Integration.Web.Mvc;
 
 namespace PizzaStore
 {
@@ -10,6 +14,13 @@ namespace PizzaStore
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            var container = new Container();
+            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+            DependencyConfig.RegisterDependencies(container);
+            container.Verify();
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
     }
 }
