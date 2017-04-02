@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Transactions;
 using SimpleInjector;
 
 namespace Infrastructure.DataAccess
 {
     public class Uow : ReadOnlyUow, IUow
     {
-        public Uow(Container container) : base(container)
+        private readonly TransactionScope _transactionScope;
+
+        public Uow(Container container, IsolationLevel isolationLevel) 
+            : base(container)
         {
+            TransactionOptions transactionOptions = new TransactionOptions
+            {
+                IsolationLevel = isolationLevel
+            };
+            _transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions);
         }
 
         public void Commit()
@@ -20,6 +29,13 @@ namespace Infrastructure.DataAccess
                     transactional.Commit();
                 }
             }
+            _transactionScope.Complete();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _transactionScope.Dispose();
         }
     }
 }

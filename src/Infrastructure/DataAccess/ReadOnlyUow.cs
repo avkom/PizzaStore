@@ -17,7 +17,7 @@ namespace Infrastructure.DataAccess
             Uows = new Dictionary<Type, IDisposable>();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             foreach (KeyValuePair<Type, IDisposable> uow in Uows)
             {

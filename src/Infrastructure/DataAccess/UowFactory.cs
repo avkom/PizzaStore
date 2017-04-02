@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Transactions;
 using SimpleInjector;
 
 namespace Infrastructure.DataAccess
@@ -14,12 +15,17 @@ namespace Infrastructure.DataAccess
 
         public IUow BeginUow()
         {
-            return _container.GetInstance<IUow>();
+            return new Uow(_container, IsolationLevel.ReadCommitted);
+        }
+
+        public IUow BeginUow(IsolationLevel isolationLevel)
+        {
+            return new Uow(_container, isolationLevel);
         }
 
         public IDisposable BeginReadOnlyUow()
         {
-            return _container.GetInstance<ReadOnlyUow>();
+            return new ReadOnlyUow(_container);
         }
     }
 }
