@@ -1,0 +1,16 @@
+﻿@using PizzaStore.Models
+@model IEnumerable<ProductViewModel>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>Products</h2>
+
+@foreach (ProductViewModel product in Model)
+{
+    <div>
+        <div>@product.Name</div>
+        <div>@product.Description</div>
+    </div>
+}
