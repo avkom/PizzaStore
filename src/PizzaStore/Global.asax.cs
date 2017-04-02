@@ -44,7 +44,7 @@ namespace PizzaStore
             container.GetRegistration(typeof(IDbConnection)).Registration
                 .SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed explicitly by application code.");
 
-            container.Verify();
+            // container.Verify();
         }
     }
 }

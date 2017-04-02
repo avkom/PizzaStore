@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using Dapper;
 using Infrastructure.DataAccess;
 using Infrastructure.Mapping;
 using PizzaStore.Business.DataAccess.Products;
@@ -21,31 +22,8 @@ namespace PizzaStore.DataAccess.Products
         public ProductListModel Execute(ProductCriteriaModel productCriteria)
         {
             IDbConnection connection = _ambientUowProvider.Get<IDbConnection>();
-
-            List<ProductEntity> products = new List<ProductEntity>
-            {
-                new ProductEntity
-                {
-                    Name = "Product 1 Name",
-                    Description = "Product 1 Description"
-                },
-                new ProductEntity
-                {
-                    Name = "Product 2 Name",
-                    Description = "Product 2 Description"
-                },
-                new ProductEntity
-                {
-                    Name = "Product 3 Name",
-                    Description = "Product 3 Description"
-                },
-                new ProductEntity
-                {
-                    Name = "Product 4 Name",
-                    Description = "Product 4 Description"
-                }
-            };
-
+            string sql = "SELECT * FROM Product;";
+            List<ProductEntity> products = connection.Query<ProductEntity>(sql).AsList();
             var productListModel = new ProductListModel
             {
                 Products = _mapper.Map<IEnumerable<ProductModel>>(products)
