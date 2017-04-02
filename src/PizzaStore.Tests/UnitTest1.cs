@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SimpleInjector;
 
 namespace PizzaStore.Tests
 {
@@ -9,6 +9,9 @@ namespace PizzaStore.Tests
         [TestMethod]
         public void TestMethod1()
         {
+            Container container = new Container();
+
+            Assert.IsNotNull(container.GetInstance<Container>());
         }
     }
 }

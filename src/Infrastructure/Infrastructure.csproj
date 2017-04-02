@@ -34,6 +34,10 @@
       <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleInjector, Version=4.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.0\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,9 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMapper.cs" />
-    <Compile Include="Mapper.cs" />
+    <Compile Include="DataAccess\UowFactory.cs" />
+    <Compile Include="DataAccess\IAmbientUowProvider.cs" />
+    <Compile Include="DependencyConfig.cs" />
+    <Compile Include="Mapping\IMapper.cs" />
+    <Compile Include="DataAccess\IUow.cs" />
+    <Compile Include="DataAccess\IUowFactory.cs" />
+    <Compile Include="Mapping\Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataAccess\Uow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

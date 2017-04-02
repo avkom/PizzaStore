@@ -6,6 +6,8 @@ using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using AutoMapper;
+using Infrastructure.DataAccess;
+using SimpleInjector.Diagnostics;
 
 namespace PizzaStore
 {
@@ -19,6 +21,7 @@ namespace PizzaStore
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+            Infrastructure.DependencyConfig.RegisterDependencies(container);
             DependencyConfig.RegisterDependencies(container);
             Business.DependencyConfig.RegisterDependencies(container);
             DataAccess.DependencyConfig.RegisterDependencies(container);
@@ -32,6 +35,16 @@ namespace PizzaStore
             container.Register<IMapper>(() => mapper, Lifestyle.Singleton);
 
             mapperConfig.AssertConfigurationIsValid();
+
+            container
+                .GetRegistration(typeof(IUow))
+                .Registration
+                .SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed explicitly by application code.");
+
+            container
+                .GetRegistration(typeof(IAmbientUowProvider))
+                .Registration
+                .SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed explicitly by application code.");
             container.Verify();
         }
     }

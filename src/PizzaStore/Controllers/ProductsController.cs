@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Infrastructure;
+using Infrastructure.Mapping;
 using PizzaStore.Business.Models;
 using PizzaStore.Business.Products;
 using PizzaStore.Models;

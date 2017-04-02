@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Infrastructure;
+using Infrastructure.Mapping;
 using PizzaStore.Business.DataAccess.Products;
 using PizzaStore.Business.Models;
 

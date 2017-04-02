@@ -1,8 +1,8 @@
-﻿namespace Infrastructure
+﻿namespace Infrastructure.Mapping
 {
     public class Mapper : IMapper
     {
-        AutoMapper.IMapper _mapper;
+        private AutoMapper.IMapper _mapper;
 
         public Mapper(AutoMapper.IMapper mapper)
         {
