@@ -1,7 +1,6 @@
 ﻿using Infrastructure.DataAccess;
 using Infrastructure.Mapping;
 using SimpleInjector;
-using SimpleInjector.Diagnostics;
 
 namespace Infrastructure
 {
