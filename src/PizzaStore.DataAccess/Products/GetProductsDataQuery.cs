@@ -20,7 +20,7 @@ namespace PizzaStore.DataAccess.Products
 
         public ProductListModel Execute(ProductCriteriaModel productCriteria)
         {
-            // IDbConnection connection = _ambientUowProvider.Get<IDbConnection>();
+            IDbConnection connection = _ambientUowProvider.Get<IDbConnection>();
 
             List<ProductEntity> products = new List<ProductEntity>
             {
