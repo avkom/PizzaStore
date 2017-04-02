@@ -1,5 +1,5 @@
 ﻿@using PizzaStore.Models
-@model IEnumerable<ProductViewModel>
+@model ProductListViewModel
 
 @{
     ViewBag.Title = "Products";
@@ -7,7 +7,7 @@
 
 <h2>Products</h2>
 
-@foreach (ProductViewModel product in Model)
+@foreach (ProductViewModel product in Model.Products)
 {
     <div>
         <div>@product.Name</div>

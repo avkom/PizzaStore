@@ -138,6 +138,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="DependencyConfig.cs" />
     <Compile Include="MappingConfig.cs" />
+    <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -170,6 +171,14 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{bd1cbcb9-c4c9-4930-8552-2533489f3d3a}</Project>
       <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PizzaStore.Business\PizzaStore.Business.csproj">
+      <Project>{e283b8b5-9909-451d-81e8-35bcdfd8042a}</Project>
+      <Name>PizzaStore.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PizzaStore.DataAccess\PizzaStore.DataAccess.csproj">
+      <Project>{bc5e10c8-b794-4b53-a46c-b7d7db9e8c6f}</Project>
+      <Name>PizzaStore.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

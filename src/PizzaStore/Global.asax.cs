@@ -20,10 +20,13 @@ namespace PizzaStore
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             DependencyConfig.RegisterDependencies(container);
+            Business.DependencyConfig.RegisterDependencies(container);
+            DataAccess.DependencyConfig.RegisterDependencies(container);
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
             var mapperConfig = new MapperConfiguration(cfg => {
                 cfg.AddProfile<MappingConfig>();
+                cfg.AddProfile<DataAccess.MappingConfig>();
             });
             var mapper = new Mapper(mapperConfig);
             container.Register<IMapper>(() => mapper, Lifestyle.Singleton);
