@@ -9,17 +9,17 @@ namespace Infrastructure.DataAccess
         private readonly Container _container;
 
         [ThreadStatic]
-        private static IDictionary<Type, IUow> _uows;
+        private static IDictionary<Type, IDisposable> _uows;
 
         public Uow(Container container)
         {
             _container = container;
-            _uows = new Dictionary<Type, IUow>();
+            _uows = new Dictionary<Type, IDisposable>();
         }
 
         public void Dispose()
         {
-            foreach (KeyValuePair<Type, IUow> uow in _uows)
+            foreach (KeyValuePair<Type, IDisposable> uow in _uows)
             {
                 uow.Value.Dispose();
             }
@@ -27,15 +27,19 @@ namespace Infrastructure.DataAccess
 
         public void Commit()
         {
-            foreach (KeyValuePair<Type, IUow> uow in _uows)
+            foreach (KeyValuePair<Type, IDisposable> uow in _uows)
             {
-                uow.Value.Commit();
+                ITransactional transactional = uow.Value as ITransactional;
+                if (transactional != null)
+                {
+                    transactional.Commit();
+                }
             }
         }
 
-        public T GetUow<T>() where T : class, IUow
+        public T Get<T>() where T : class, IDisposable
         {
-            IUow uow;
+            IDisposable uow;
             bool uowExists = _uows.TryGetValue(typeof(T), out uow);
             if (!uowExists)
             {

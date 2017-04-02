@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using Infrastructure.DataAccess;
 using Infrastructure.Mapping;
 using PizzaStore.Business.DataAccess.Products;
 using PizzaStore.Business.Models;
@@ -8,14 +10,18 @@ namespace PizzaStore.DataAccess.Products
     public class GetProductsDataQuery : IGetProductsDataQuery
     {
         private readonly IMapper _mapper;
+        private readonly IAmbientUowProvider _ambientUowProvider;
 
-        public GetProductsDataQuery(IMapper mapper)
+        public GetProductsDataQuery(IMapper mapper, IAmbientUowProvider ambientUowProvider)
         {
             _mapper = mapper;
+            _ambientUowProvider = ambientUowProvider;
         }
 
         public ProductListModel Execute(ProductCriteriaModel productCriteria)
         {
+            // IDbConnection connection = _ambientUowProvider.Get<IDbConnection>();
+
             List<ProductEntity> products = new List<ProductEntity>
             {
                 new ProductEntity

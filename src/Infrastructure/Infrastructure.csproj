@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\ITransactional.cs" />
     <Compile Include="DataAccess\UowFactory.cs" />
     <Compile Include="DataAccess\IAmbientUowProvider.cs" />
     <Compile Include="DependencyConfig.cs" />

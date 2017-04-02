@@ -1,7 +1,9 @@
-﻿namespace Infrastructure.DataAccess
+﻿using System;
+
+namespace Infrastructure.DataAccess
 {
     public interface IAmbientUowProvider
     {
-        T GetUow<T>() where T : class, IUow;
+        T Get<T>() where T : class, IDisposable;
     }
 }
