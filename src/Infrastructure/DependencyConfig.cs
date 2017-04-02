@@ -11,6 +11,7 @@ namespace Infrastructure
         {
             container.Register<IMapper, Mapper>();
             container.Register<IUowFactory, UowFactory>();
+            container.Register<ReadOnlyUow>();
             container.Register<IUow, Uow>();
             container.Register<IAmbientUowProvider, Uow>();
             container.Register<IDbConnectionFactory, DbConnectionFactory>();

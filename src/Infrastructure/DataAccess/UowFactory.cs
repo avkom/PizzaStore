@@ -1,4 +1,5 @@
-﻿using SimpleInjector;
+﻿using System;
+using SimpleInjector;
 
 namespace Infrastructure.DataAccess
 {
@@ -11,9 +12,14 @@ namespace Infrastructure.DataAccess
             _container = container;
         }
 
-        public IUow Start()
+        public IUow BeginUow()
         {
             return _container.GetInstance<IUow>();
+        }
+
+        public IDisposable BeginReadOnlyUow()
+        {
+            return _container.GetInstance<ReadOnlyUow>();
         }
     }
 }

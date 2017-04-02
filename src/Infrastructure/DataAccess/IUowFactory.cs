@@ -1,7 +1,11 @@
-﻿namespace Infrastructure.DataAccess
+﻿using System;
+
+namespace Infrastructure.DataAccess
 {
     public interface IUowFactory
     {
-        IUow Start();
+        IUow BeginUow();
+
+        IDisposable BeginReadOnlyUow();
     }
 }
