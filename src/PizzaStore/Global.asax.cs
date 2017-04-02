@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Data;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -36,15 +37,13 @@ namespace PizzaStore
 
             mapperConfig.AssertConfigurationIsValid();
 
-            container
-                .GetRegistration(typeof(IUow))
-                .Registration
+            container.GetRegistration(typeof(IUow)).Registration
+                .SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed explicitly by application code.");
+            container.GetRegistration(typeof(IAmbientUowProvider)).Registration
+                .SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed explicitly by application code.");
+            container.GetRegistration(typeof(IDbConnection)).Registration
                 .SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed explicitly by application code.");
 
-            container
-                .GetRegistration(typeof(IAmbientUowProvider))
-                .Registration
-                .SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed explicitly by application code.");
             container.Verify();
         }
     }
